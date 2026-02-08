@@ -1,20 +1,44 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaPaperPlane, FaLinkedin, FaBehance, FaEnvelope, FaPinterest, FaInstagram } from 'react-icons/fa';
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
-    const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+    const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isConfetti, setIsConfetti] = useState(false);
+    const [isSending, setIsSending] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Simulate submission
-        setTimeout(() => {
+        setIsSending(true);
+
+        try {
+            const serviceID = "service_2w62vuk";
+            const templateID = "template_l86fr43";
+            const publicKey = "8D6A9v_tmOg8LVyS1";
+
+            await emailjs.send(
+                serviceID,
+                templateID,
+                {
+                    subject: formData.subject,
+                    message: formData.message,
+                    email: formData.email,
+                    name: formData.name,
+                },
+                publicKey
+            );
+
             setIsSubmitted(true);
             setIsConfetti(true);
             setTimeout(() => setIsConfetti(false), 5000);
-        }, 1000);
+        } catch (error) {
+            console.error('Error sending email:', error);
+            alert("Oops! There was a problem sending your message. Please try again or reach out via LinkedIn.");
+        } finally {
+            setIsSending(false);
+        }
     };
 
     return (
@@ -104,6 +128,17 @@ const Contact = () => {
                                         />
                                     </div>
                                     <div className="mb-6 group">
+                                        <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Subject</label>
+                                        <input
+                                            type="text"
+                                            required
+                                            className="w-full px-4 py-3 rounded-lg bg-pink-50 border-2 border-transparent focus:border-barbie-hot focus:bg-white transition-all outline-none"
+                                            placeholder="Project inquiry, collaboration, etc."
+                                            value={formData.subject}
+                                            onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                                        />
+                                    </div>
+                                    <div className="mb-6 group">
                                         <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Message</label>
                                         <textarea
                                             required
@@ -117,9 +152,14 @@ const Contact = () => {
                                     <motion.button
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
-                                        className="w-full bg-gradient-to-r from-barbie-hot to-barbie-ruby text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
+                                        disabled={isSending}
+                                        className={`w-full bg-gradient-to-r from-barbie-hot to-barbie-ruby text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 ${isSending ? 'opacity-70 cursor-not-allowed' : ''}`}
                                     >
-                                        Send Message <FaPaperPlane />
+                                        {isSending ? (
+                                            <>Sending... <span className="animate-spin text-xl">✨</span></>
+                                        ) : (
+                                            <>Send Message <FaPaperPlane /></>
+                                        )}
                                     </motion.button>
                                 </motion.form>
                             ) : (
@@ -140,7 +180,7 @@ const Contact = () => {
                                     <h3 className="text-3xl font-bold text-gray-900 mb-4">Message Sent!</h3>
                                     <p className="text-gray-600">Thanks for reaching out! I'll get back to you faster than a pink convertible.</p>
                                     <button
-                                        onClick={() => { setIsSubmitted(false); setFormData({ name: '', email: '', message: '' }); }}
+                                        onClick={() => { setIsSubmitted(false); setFormData({ name: '', email: '', subject: '', message: '' }); }}
                                         className="mt-8 text-barbie-hot font-bold hover:underline"
                                     >
                                         Send another message
