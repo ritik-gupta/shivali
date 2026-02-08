@@ -75,8 +75,8 @@ const Navbar = () => {
                                 duration={500}
                                 spy={true}
                                 offset={-70}
-                                activeClass="text-barbie-ruby font-bold scale-110"
-                                className="text-gray-600 hover:text-barbie-hot font-medium cursor-pointer transition-colors duration-300 relative group"
+                                activeClass="active-nav"
+                                className="text-gray-600 hover:text-barbie-hot font-medium cursor-pointer transition-all duration-300 relative group"
                             >
                                 {link.name}
                                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-barbie-hot transition-all duration-300 group-hover:w-full"></span>
@@ -121,15 +121,24 @@ const Navbar = () => {
                                 to={link.to}
                                 smooth={true}
                                 duration={500}
+                                spy={true}
+                                offset={-70}
+                                activeClass="text-barbie-ruby font-bold scale-110"
                                 onClick={toggleMenu}
-                                className="text-2xl font-display font-medium text-gray-800 hover:text-barbie-hot cursor-pointer"
+                                className="text-2xl font-display font-medium text-gray-800 hover:text-barbie-hot cursor-pointer transition-all"
                             >
                                 {link.name}
                             </Link>
                         ))}
-                        <button className="mt-8 bg-barbie-hot text-white px-8 py-3 rounded-full text-lg shadow-lg">
-                            Let's Talk
-                        </button>
+                        <Link to="contact" smooth={true} duration={500} offset={-70} onClick={toggleMenu}>
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="mt-8 bg-barbie-hot text-white px-8 py-3 rounded-full text-lg shadow-lg font-bold"
+                            >
+                                Let's Talk
+                            </motion.button>
+                        </Link>
                     </motion.div>
                 )}
             </AnimatePresence>

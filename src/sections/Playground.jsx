@@ -153,7 +153,12 @@ const Playground = () => {
                                     drag
                                     dragConstraints={{ left: 0, right: 300, top: 0, bottom: 200 }}
                                     whileDrag={{ scale: 1.2, rotate: 10 }}
-                                    whileHover={{ scale: 1.1, cursor: 'grab' }}
+                                    whileHover={{
+                                        scale: 1.1,
+                                        cursor: 'grab',
+                                        rotate: [0, -5, 5, -5, 0],
+                                        transition: { duration: 0.3 }
+                                    }}
                                     whileTap={{ cursor: 'grabbing' }}
                                     className="absolute p-4 text-4xl shadow-sm rounded-full bg-white select-none"
                                     style={{

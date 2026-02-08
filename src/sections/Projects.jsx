@@ -94,9 +94,13 @@ const Projects = () => {
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 key={project.id}
-                                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow cursor-pointer group"
+                                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer group"
                                 onClick={() => setSelectedProject(project)}
-                                whileHover={{ y: -5 }}
+                                whileHover={{
+                                    y: -10,
+                                    scale: 1.02,
+                                    transition: { duration: 0.3, ease: "easeOut" }
+                                }}
                             >
                                 <div className="relative h-48 overflow-hidden">
                                     <motion.img
