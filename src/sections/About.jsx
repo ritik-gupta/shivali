@@ -26,7 +26,7 @@ const About = () => {
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
+                        transition={{ duration: 0.5 }}
                     >
                         <div className="absolute inset-0 bg-barbie-hot rounded-full blur-xl opacity-20 transform scale-110 group-hover:scale-125 transition-transform duration-500"></div>
                         <div className="relative w-full h-full rounded-full border-4 border-white shadow-2xl overflow-hidden transform hover:rotate-3 transition-transform duration-500">
@@ -50,25 +50,28 @@ const About = () => {
                             show: {
                                 opacity: 1,
                                 transition: {
-                                    staggerChildren: 0.2
+                                    staggerChildren: 0.1
                                 }
                             }
                         }}
                     >
                         <motion.span
                             variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}
+                            transition={{ duration: 0.3 }}
                             className="text-barbie-ruby uppercase tracking-wider font-semibold mb-2 block"
                         >
                             Who I Am
                         </motion.span>
                         <motion.h2
                             variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}
+                            transition={{ duration: 0.3 }}
                             className="text-4xl md:text-5xl font-display font-bold text-black mb-6"
                         >
                             Designing with Passion & Purpose
                         </motion.h2>
                         <motion.p
                             variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}
+                            transition={{ duration: 0.3 }}
                             className="text-lg text-gray-600 mb-8 leading-relaxed"
                         >
                             I'm a designer based in Delhi, creating meaningful and visually strong digital experiences. I work on UX/UI design, website design, brand identity, and logo design, blending art and strategy to make designs that stand out.

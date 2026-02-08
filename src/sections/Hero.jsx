@@ -27,7 +27,7 @@ const Hero = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
+                    transition={{ duration: 0.5 }}
                 >
                     <span className="block text-barbie-ruby font-medium text-xl mb-4 tracking-widest uppercase">
                         Hello World, I'm
@@ -44,7 +44,7 @@ const Hero = () => {
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 0.5, duration: 0.8 }}
+                    transition={{ delay: 0.3, duration: 0.5 }}
                     className="text-xl md:text-2xl text-gray-600 mb-10 max-w-2xl mx-auto h-20"
                 >
                     <TypeAnimation
@@ -70,7 +70,7 @@ const Hero = () => {
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.8, type: "spring" }}
+                    transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
                     className="flex justify-center gap-4"
                 >
                     <Link to="projects" smooth={true} duration={500} offset={-70}>

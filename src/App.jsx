@@ -17,7 +17,7 @@ function App() {
     // Simulate loading time
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2500);
+    }, 1500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -70,7 +70,7 @@ function App() {
                 className="h-full bg-white"
                 initial={{ width: "0%" }}
                 animate={{ width: "100%" }}
-                transition={{ duration: 2, ease: "easeInOut" }}
+                transition={{ duration: 1.2, ease: "easeInOut" }}
               />
             </div>
             <p className="text-white mt-4 font-bold tracking-widest uppercase text-sm animate-pulse">

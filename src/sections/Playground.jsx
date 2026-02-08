@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { FaSync, FaPalette, FaStar, FaHeart, FaSmile, FaCloud } from 'react-icons/fa';
 
 const Playground = () => {
     const [colors, setColors] = useState(['#FF69B4', '#FFC0CB', '#E0115F', '#FFFFFF', '#E6E6FA']);
     const [copiedColor, setCopiedColor] = useState(null);
+    const constraintsRef = useRef(null);
 
     const generateColors = () => {
         const newColors = [];
@@ -146,12 +147,14 @@ const Playground = () => {
                         </h3>
                         <p className="text-gray-500 mb-6 text-sm">Drag stickers around to create your vibe!</p>
 
-                        <div className="bg-white/50 border-2 border-dashed border-purple-200 rounded-xl h-64 relative">
+                        <div ref={constraintsRef} className="bg-white/50 border-2 border-dashed border-purple-200 rounded-xl h-80 relative overflow-hidden">
                             {stickers.map((sticker) => (
                                 <motion.div
                                     key={sticker.id}
                                     drag
-                                    dragConstraints={{ left: 0, right: 300, top: 0, bottom: 200 }}
+                                    dragConstraints={constraintsRef}
+                                    dragElastic={0.1}
+                                    dragMomentum={true}
                                     whileDrag={{ scale: 1.2, rotate: 10 }}
                                     whileHover={{
                                         scale: 1.1,
