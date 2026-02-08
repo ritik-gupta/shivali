@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-barbie-hot: #FF69B4;
+  --color-barbie-soft: #FFC0CB;
+  --color-barbie-ruby: #E0115F;
+  --color-barbie-deep: #B00B69;
+  --color-barbie-light: #FFE4E1;
+
+  --color-purple-subtle: #D8BFD8;
+  --color-purple-lavender: #E6E6FA;
+
+  --font-sans: 'Outfit', 'Inter', 'system-ui', 'sans-serif';
+  --font-display: 'Poppins', 'Outfit', 'sans-serif';
+
+  --animate-spin-slow: spin 8s linear infinite;
+  --animate-wiggle: wiggle 1s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes wiggle {
+
+    0%,
+    100% {
+      transform: rotate(-3deg);
+    }
+
+    50% {
+      transform: rotate(3deg);
+    }
+  }
+}
+
+:root {
+  --cursor-size: 20px;
+}
+
+body {
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  background-color: #FFFFFF;
+  color: #1a1a1a;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-barbie-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-barbie-hot);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-barbie-ruby);
+}
+
+
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}
+
+.glass-nav {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 105, 180, 0.1);
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #FF69B4, #E0115F, #9C27B0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
