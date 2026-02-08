@@ -42,23 +42,45 @@ const About = () => {
                     {/* Content */}
                     <motion.div
                         className="flex-1 text-center md:text-left"
-                        initial={{ opacity: 0, x: 50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ once: true, amount: 0.3 }}
+                        variants={{
+                            hidden: { opacity: 0 },
+                            show: {
+                                opacity: 1,
+                                transition: {
+                                    staggerChildren: 0.2
+                                }
+                            }
+                        }}
                     >
-                        <span className="text-barbie-ruby uppercase tracking-wider font-semibold mb-2 block">Who I Am</span>
-                        <h2 className="text-4xl md:text-5xl font-display font-bold text-black mb-6">
+                        <motion.span
+                            variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}
+                            className="text-barbie-ruby uppercase tracking-wider font-semibold mb-2 block"
+                        >
+                            Who I Am
+                        </motion.span>
+                        <motion.h2
+                            variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}
+                            className="text-4xl md:text-5xl font-display font-bold text-black mb-6"
+                        >
                             Designing with Passion & Purpose
-                        </h2>
-                        <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                        </motion.h2>
+                        <motion.p
+                            variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}
+                            className="text-lg text-gray-600 mb-8 leading-relaxed"
+                        >
                             I'm a designer based in Delhi, creating meaningful and visually strong digital experiences. I work on UX/UI design, website design, brand identity, and logo design, blending art and strategy to make designs that stand out.
                             <br /><br />
                             I focus on intuitive user journeys, clean visuals, and thoughtful details that enhance usability. My goal is to create designs that feel seamless, purposeful, and aligned with brand vision.
-                        </p>
+                        </motion.p>
 
                         {/* Skills */}
-                        <div className="flex flex-wrap gap-3 justify-center md:justify-start mb-8">
+                        <motion.div
+                            variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
+                            className="flex flex-wrap gap-3 justify-center md:justify-start mb-8"
+                        >
                             {skills.map((skill, index) => (
                                 <motion.div
                                     key={index}
@@ -69,18 +91,20 @@ const About = () => {
                                     {skill.name}
                                 </motion.div>
                             ))}
-                        </div>
+                        </motion.div>
 
-                        <a
-                            href="/assets/shivali_resume.pdf"
-                            download="Shivali_Gaur_Resume.pdf"
-                            className="inline-block"
-                        >
-                            <button className="flex items-center gap-2 bg-black text-white px-8 py-3 rounded-full hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl group">
-                                <FaDownload className="group-hover:animate-bounce" />
-                                Download Resume
-                            </button>
-                        </a>
+                        <motion.div variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}>
+                            <a
+                                href="/assets/shivali_resume.pdf"
+                                download="Shivali_Gaur_Resume.pdf"
+                                className="inline-block"
+                            >
+                                <button className="flex items-center gap-2 bg-black text-white px-8 py-3 rounded-full hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl group">
+                                    <FaDownload className="group-hover:animate-bounce" />
+                                    Download Resume
+                                </button>
+                            </a>
+                        </motion.div>
                     </motion.div>
                 </div>
 

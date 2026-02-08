@@ -84,22 +84,41 @@ const Projects = () => {
                 {/* Grid */}
                 <motion.div
                     layout
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true, amount: 0.05 }}
+                    variants={{
+                        hidden: {},
+                        show: {
+                            transition: {
+                                staggerChildren: 0.1,
+                                delayChildren: 0.2
+                            }
+                        }
+                    }}
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
                 >
-                    <AnimatePresence>
+                    <AnimatePresence mode="popLayout">
                         {filteredProjects.map((project) => (
                             <motion.div
                                 layout
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
+                                variants={{
+                                    hidden: { opacity: 0, y: 30, scale: 0.98 },
+                                    show: {
+                                        opacity: 1,
+                                        y: 0,
+                                        scale: 1,
+                                        transition: { type: "spring", stiffness: 100, damping: 20 }
+                                    }
+                                }}
+                                exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
                                 key={project.id}
-                                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer group"
+                                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer group"
                                 onClick={() => setSelectedProject(project)}
                                 whileHover={{
                                     y: -10,
                                     scale: 1.02,
-                                    transition: { duration: 0.3, ease: "easeOut" }
+                                    transition: { type: "spring", stiffness: 300, damping: 15 }
                                 }}
                             >
                                 <div className="relative h-48 overflow-hidden">
