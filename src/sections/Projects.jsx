@@ -34,7 +34,7 @@ const Projects = () => {
             desc: 'A comprehensive website design and branding project for RMC, a specialized recruiting agency in the Freight Forwarding industry. The project includes complete design assets and a fully responsive website.',
             tech: ['Wix Studio', 'Web Design', 'Figma'],
             image: '/assets/project-rmc.png',
-            link: 'https://resourcemappingcon.wixstudio.com/my-site-3'
+            link: 'https://resourcemappingconsultancy.com/'
         },
         {
             id: 4,
@@ -112,11 +112,20 @@ const Projects = () => {
                                     <span className="text-xs font-bold text-barbie-hot uppercase tracking-wider mb-2 block">{project.category}</span>
                                     <h3 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h3>
                                     <p className="text-gray-600 text-sm mb-4 line-clamp-2">{project.desc}</p>
-                                    <div className="flex flex-wrap gap-2">
+                                    <div className="flex flex-wrap gap-2 mb-6">
                                         {project.tech.map((t, i) => (
                                             <span key={i} className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-md">{t}</span>
                                         ))}
                                     </div>
+                                    <a
+                                        href={project.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors w-full justify-center"
+                                    >
+                                        <FaExternalLinkAlt size={12} /> View Project
+                                    </a>
                                 </div>
                             </motion.div>
                         ))}
