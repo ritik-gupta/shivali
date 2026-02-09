@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { FaSync, FaPalette, FaStar, FaHeart, FaSmile, FaCloud } from 'react-icons/fa';
 
 const Playground = () => {
-    const [colors, setColors] = useState(['#FF69B4', '#FFC0CB', '#E0115F', '#FFFFFF', '#E6E6FA']);
+    const [colors, setColors] = useState(['#FF69B4', '#FFC0CB', '#E0115F', '#C71585', '#BA55D3']);
     const [copiedColor, setCopiedColor] = useState(null);
     const constraintsRef = useRef(null);
 

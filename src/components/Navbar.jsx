@@ -85,15 +85,15 @@ const Navbar = () => {
                     ))}
 
                     <Link to="contact" smooth={true} duration={500} offset={-70}>
-                        <motion.button
+                        <motion.span
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="bg-gradient-to-r from-barbie-hot to-barbie-ruby text-white px-6 py-2 rounded-full font-medium shadow-md hover:shadow-lg transition-all"
+                            className="bg-gradient-to-r from-barbie-hot to-barbie-ruby text-white px-6 py-2 rounded-full font-medium shadow-md hover:shadow-lg transition-all inline-block cursor-pointer"
                         >
                             Contact
-                        </motion.button>
+                        </motion.span>
                     </Link>
                 </div>
 
@@ -131,13 +131,13 @@ const Navbar = () => {
                             </Link>
                         ))}
                         <Link to="contact" smooth={true} duration={500} offset={-70} onClick={toggleMenu}>
-                            <motion.button
+                            <motion.span
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="mt-8 bg-barbie-hot text-white px-8 py-3 rounded-full text-lg shadow-lg font-bold"
+                                className="mt-8 bg-barbie-hot text-white px-8 py-3 rounded-full text-lg shadow-lg font-bold inline-block cursor-pointer"
                             >
                                 Let's Talk
-                            </motion.button>
+                            </motion.span>
                         </Link>
                     </motion.div>
                 )}

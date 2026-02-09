@@ -5,7 +5,7 @@ import { FaArrowDown } from 'react-icons/fa';
 
 const Hero = () => {
     return (
-        <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-pink-50 to-barbie-light">
+        <section id="home" className="relative h-screen-dvh flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-pink-50 to-barbie-light">
 
             {/* Background Shapes */}
             <motion.div
@@ -73,15 +73,15 @@ const Hero = () => {
                     transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
                     className="flex justify-center gap-4"
                 >
-                    <Link to="projects" smooth={true} duration={500} offset={-70}>
-                        <button className="bg-barbie-ruby text-white px-8 py-3 rounded-full text-lg font-medium shadow-lg hover:bg-barbie-deep transition-all hover:scale-105">
+                    <Link to="projects" smooth={true} duration={500} offset={-70} className="cursor-pointer">
+                        <span className="bg-barbie-ruby text-white px-8 py-3 rounded-full text-lg font-medium shadow-lg hover:bg-barbie-deep transition-all hover:scale-105 inline-block">
                             View My Work
-                        </button>
+                        </span>
                     </Link>
-                    <Link to="contact" smooth={true} duration={500} offset={-70}>
-                        <button className="bg-white text-barbie-ruby border-2 border-barbie-ruby px-8 py-3 rounded-full text-lg font-medium shadow-lg hover:bg-pink-50 transition-all hover:scale-105">
+                    <Link to="contact" smooth={true} duration={500} offset={-70} className="cursor-pointer">
+                        <span className="bg-white text-barbie-ruby border-2 border-barbie-ruby px-8 py-3 rounded-full text-lg font-medium shadow-lg hover:bg-pink-50 transition-all hover:scale-105 inline-block">
                             Contact Me
-                        </button>
+                        </span>
                     </Link>
                 </motion.div>
             </div>

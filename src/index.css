@@ -50,10 +50,22 @@
 
 body {
   font-family: var(--font-sans);
-  overflow-x: hidden;
+  /* overflow-x: hidden; - Removed to prevent iOS scroll locking, handled by App wrapper */
   background-color: #FFFFFF;
   color: #1a1a1a;
+  -webkit-tap-highlight-color: transparent;
+  /* Remove gray tap highlight on iOS */
+  overscroll-behavior-y: none;
+  /* Optional: prevents bounce effect if desired, but reckless if not carefully used. Safer to leave default or evaluate. */
 }
+
+/* iOS Dynamic Viewport Height Utility */
+.h-screen-dvh {
+  height: 100vh;
+  /* Fallback */
+  height: 100dvh;
+}
+
 
 h1,
 h2,
