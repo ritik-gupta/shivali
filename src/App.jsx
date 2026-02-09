@@ -69,7 +69,9 @@ function App() {
   };
 
   return (
-    <div className="antialiased selection:bg-barbie-hot selection:text-white overflow-x-hidden w-full">
+    <div className="antialiased selection:bg-barbie-hot selection:text-white overflow-x-hidden w-full relative">
+      {/* Texture Overlay */}
+      <div className="noise-overlay" />
 
 
       <AnimatePresence>

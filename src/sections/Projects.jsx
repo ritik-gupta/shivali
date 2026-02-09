@@ -1,6 +1,102 @@
-import { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useMemo, useRef } from 'react';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { FaLaptopCode, FaMobileAlt, FaPalette, FaExternalLinkAlt } from 'react-icons/fa';
+
+const ProjectCard = ({ project, onClick }) => {
+    const ref = useRef(null);
+
+    // Mouse position state
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    // Smooth physics for rotation
+    const mouseXSpring = useSpring(x);
+    const mouseYSpring = useSpring(y);
+
+    // Map mouse position to rotation degrees
+    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
+    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+
+    const handleMouseMove = (e) => {
+        const rect = ref.current.getBoundingClientRect();
+
+        const width = rect.width;
+        const height = rect.height;
+
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        // Calculate normalized position (-0.5 to 0.5)
+        const xPct = mouseX / width - 0.5;
+        const yPct = mouseY / height - 0.5;
+
+        x.set(xPct);
+        y.set(yPct);
+
+        // Custom property for spotlight
+        ref.current.style.setProperty('--mouse-x', `${mouseX}px`);
+        ref.current.style.setProperty('--mouse-y', `${mouseY}px`);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
+    return (
+        <motion.div
+            ref={ref}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => onClick(project)}
+            style={{
+                rotateX,
+                rotateY,
+                transformStyle: "preserve-3d",
+            }}
+            whileHover={{ scale: 1.02 }}
+            className="relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer group border border-transparent dark:border-gray-700 isolate h-full flex flex-col"
+        >
+            {/* Spotlight Effect */}
+            <div
+                className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 z-50 mix-blend-soft-light"
+                style={{
+                    background: `radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 105, 180, 0.4), transparent 40%)`
+                }}
+            />
+            {/* 3D Depth Elements */}
+            <div style={{ transform: "translateZ(50px)", transformStyle: "preserve-3d" }} className="relative h-48 overflow-hidden shrink-0">
+                <motion.img
+                    src={project.image}
+                    alt={project.title}
+                    className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${project.id === 4 ? 'object-top' : ''}`}
+                />
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span className="text-white font-bold text-lg border-b-2 border-barbie-hot pb-1 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">View Details</span>
+                </div>
+            </div>
+
+            <div style={{ transform: "translateZ(30px)" }} className="p-6 flex-grow flex flex-col">
+                <span className="text-xs font-bold text-barbie-hot uppercase tracking-wider mb-2 block">{project.category}</span>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{project.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2 flex-grow">{project.desc}</p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                    {project.tech.map((t, i) => (
+                        <span key={i} className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs px-2 py-1 rounded-md">{t}</span>
+                    ))}
+                </div>
+                <div className="mt-auto">
+                    <span className="inline-flex items-center gap-2 bg-black dark:bg-gray-900 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-700 transition-colors w-full justify-center">
+                        <FaExternalLinkAlt size={12} /> View Project
+                    </span>
+                </div>
+            </div>
+        </motion.div>
+    );
+};
 
 const Projects = () => {
     const [filter, setFilter] = useState('All');
@@ -84,96 +180,16 @@ const Projects = () => {
                 {/* Grid */}
                 <motion.div
                     layout
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true, amount: 0.05 }}
-                    variants={{
-                        hidden: {},
-                        show: {
-                            transition: {
-                                staggerChildren: 0.08,
-                                delayChildren: 0.1
-                            }
-                        }
-                    }}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-1000"
+                    style={{ perspective: "1000px" }}
                 >
                     <AnimatePresence mode="popLayout">
                         {filteredProjects.map((project) => (
-                            <motion.div
-                                layout
-                                variants={{
-                                    hidden: { opacity: 0, y: 20, scale: 0.98 },
-                                    show: {
-                                        opacity: 1,
-                                        y: 0,
-                                        scale: 1,
-                                        transition: { type: "spring", stiffness: 150, damping: 25 }
-                                    }
-                                }}
-                                exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+                            <ProjectCard
                                 key={project.id}
-                                className="relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer group border border-transparent dark:border-gray-700 isolate"
-                                onClick={() => setSelectedProject(project)}
-                                whileHover={{
-                                    y: -10,
-                                    scale: 1.02,
-                                    transition: { type: "spring", stiffness: 300, damping: 15 }
-                                }}
-                                onMouseMove={(e) => {
-                                    const rect = e.currentTarget.getBoundingClientRect();
-                                    const x = e.clientX - rect.left;
-                                    const y = e.clientY - rect.top;
-                                    e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-                                    e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-                                }}
-                            >
-                                {/* Spotlight Effect - Increased Visibility */}
-                                <div
-                                    className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 z-50 mix-blend-soft-light"
-                                    style={{
-                                        background: `radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 105, 180, 0.4), transparent 40%)`
-                                    }}
-                                />
-                                {/* Border Glow */}
-                                <div
-                                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none"
-                                    style={{
-                                        background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 105, 180, 0.3), transparent 40%)`,
-                                        zIndex: -1
-                                    }}
-                                />
-
-                                <div className="relative h-48 overflow-hidden">
-                                    <motion.img
-                                        src={project.image}
-                                        alt={project.title}
-                                        className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${project.id === 4 ? 'object-top' : ''}`}
-                                    />
-                                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                        <span className="text-white font-bold text-lg border-b-2 border-barbie-hot pb-1">View Details</span>
-                                    </div>
-                                </div>
-                                <div className="p-6">
-                                    <span className="text-xs font-bold text-barbie-hot uppercase tracking-wider mb-2 block">{project.category}</span>
-                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{project.title}</h3>
-                                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">{project.desc}</p>
-                                    <div className="flex flex-wrap gap-2 mb-6">
-                                        {project.tech.map((t, i) => (
-                                            <span key={i} className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs px-2 py-1 rounded-md">{t}</span>
-                                        ))}
-                                    </div>
-                                    <a
-                                        href={project.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        onClick={(e) => e.stopPropagation()}
-                                        className="inline-flex items-center gap-2 bg-black dark:bg-gray-900 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-700 transition-colors w-full justify-center"
-                                    >
-                                        <FaExternalLinkAlt size={12} /> View Project
-                                    </a>
-                                </div>
-                            </motion.div>
+                                project={project}
+                                onClick={setSelectedProject}
+                            />
                         ))}
                     </AnimatePresence>
                 </motion.div>
@@ -186,12 +202,12 @@ const Projects = () => {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setSelectedProject(null)}
-                            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+                            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
                         >
                             <motion.div
-                                initial={{ scale: 0.8, opacity: 0 }}
-                                animate={{ scale: 1, opacity: 1 }}
-                                exit={{ scale: 0.8, opacity: 0 }}
+                                initial={{ scale: 0.8, opacity: 0, rotateX: 20 }}
+                                animate={{ scale: 1, opacity: 1, rotateX: 0 }}
+                                exit={{ scale: 0.8, opacity: 0, rotateX: 20 }}
                                 onClick={(e) => e.stopPropagation()}
                                 className="bg-white dark:bg-gray-800 rounded-3xl overflow-hidden max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative"
                             >
