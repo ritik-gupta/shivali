@@ -2,9 +2,40 @@ import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { FaSync, FaPalette, FaStar, FaHeart, FaSmile, FaCloud } from 'react-icons/fa';
 
+// Generate non-overlapping positions for stickers
+const generatePositions = () => {
+    const positions = [];
+    const gridSize = 80; // Minimum spacing between stickers
+    const maxAttempts = 50;
+
+    for (let i = 0; i < 6; i++) {
+        let attempts = 0;
+        let newPos;
+        let overlapping;
+
+        do {
+            newPos = {
+                top: Math.random() * 180,
+                left: Math.random() * 280
+            };
+
+            overlapping = positions.some(pos =>
+                Math.abs(pos.top - newPos.top) < gridSize &&
+                Math.abs(pos.left - newPos.left) < gridSize
+            );
+
+            attempts++;
+        } while (overlapping && attempts < maxAttempts);
+
+        positions.push(newPos);
+    }
+    return positions;
+};
+
 const Playground = () => {
     const [colors, setColors] = useState(['#FF69B4', '#FFC0CB', '#E0115F', '#C71585', '#BA55D3']);
     const [copiedColor, setCopiedColor] = useState(null);
+    const [stickerPositions, setStickerPositions] = useState(generatePositions());
     const constraintsRef = useRef(null);
 
     const generateColors = () => {
@@ -29,6 +60,7 @@ const Playground = () => {
         }
 
         setColors(newColors);
+        setStickerPositions(generatePositions()); // Reshuffle only on "Generate Magic"
     };
 
     const handleCopyColor = (color) => {
@@ -36,38 +68,6 @@ const Playground = () => {
         setCopiedColor(color);
         setTimeout(() => setCopiedColor(null), 2000);
     };
-
-    // Generate non-overlapping positions for stickers
-    const generatePositions = () => {
-        const positions = [];
-        const gridSize = 80; // Minimum spacing between stickers
-        const maxAttempts = 50;
-
-        for (let i = 0; i < 6; i++) {
-            let attempts = 0;
-            let newPos;
-            let overlapping;
-
-            do {
-                newPos = {
-                    top: Math.random() * 180,
-                    left: Math.random() * 280
-                };
-
-                overlapping = positions.some(pos =>
-                    Math.abs(pos.top - newPos.top) < gridSize &&
-                    Math.abs(pos.left - newPos.left) < gridSize
-                );
-
-                attempts++;
-            } while (overlapping && attempts < maxAttempts);
-
-            positions.push(newPos);
-        }
-        return positions;
-    };
-
-    const stickerPositions = generatePositions();
 
     const stickers = [
         { id: 1, icon: <FaStar />, colorIndex: 0, ...stickerPositions[0] },
