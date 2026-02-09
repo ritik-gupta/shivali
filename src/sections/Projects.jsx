@@ -113,14 +113,37 @@ const Projects = () => {
                                 }}
                                 exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
                                 key={project.id}
-                                className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer group border border-transparent dark:border-gray-700"
+                                className="relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer group border border-transparent dark:border-gray-700 isolate"
                                 onClick={() => setSelectedProject(project)}
                                 whileHover={{
                                     y: -10,
                                     scale: 1.02,
                                     transition: { type: "spring", stiffness: 300, damping: 15 }
                                 }}
+                                onMouseMove={(e) => {
+                                    const rect = e.currentTarget.getBoundingClientRect();
+                                    const x = e.clientX - rect.left;
+                                    const y = e.clientY - rect.top;
+                                    e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+                                    e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+                                }}
                             >
+                                {/* Spotlight Effect - Increased Visibility */}
+                                <div
+                                    className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 z-50 mix-blend-soft-light"
+                                    style={{
+                                        background: `radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 105, 180, 0.4), transparent 40%)`
+                                    }}
+                                />
+                                {/* Border Glow */}
+                                <div
+                                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none"
+                                    style={{
+                                        background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 105, 180, 0.3), transparent 40%)`,
+                                        zIndex: -1
+                                    }}
+                                />
+
                                 <div className="relative h-48 overflow-hidden">
                                     <motion.img
                                         src={project.image}
