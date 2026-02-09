@@ -9,17 +9,17 @@ const Hero = () => {
 
             {/* Background Shapes */}
             <motion.div
-                className="absolute top-20 left-20 w-32 h-32 rounded-full bg-barbie-soft dark:bg-pink-900 blur-3xl opacity-60"
+                className="absolute top-20 left-20 w-32 h-32 rounded-full bg-barbie-soft dark:bg-pink-900 blur-3xl opacity-60 will-change-transform transform-gpu"
                 animate={{ y: [0, -20, 0], scale: [1, 1.1, 1] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
             />
             <motion.div
-                className="absolute bottom-40 right-20 w-48 h-48 rounded-full bg-purple-subtle dark:bg-purple-900 blur-3xl opacity-50"
+                className="absolute bottom-40 right-20 w-48 h-48 rounded-full bg-purple-subtle dark:bg-purple-900 blur-3xl opacity-50 will-change-transform transform-gpu"
                 animate={{ y: [0, 30, 0], scale: [1, 1.2, 1] }}
                 transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
             />
             <motion.div
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-gradient-to-r from-pink-200 to-purple-200 dark:from-pink-900/20 dark:to-purple-900/20 blur-[100px] opacity-30 z-0"
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] rounded-full bg-gradient-to-r from-pink-200 to-purple-200 dark:from-pink-900/20 dark:to-purple-900/20 blur-3xl md:blur-[100px] opacity-30 z-0 will-change-transform transform-gpu"
             />
 
             {/* Main Content */}
@@ -36,6 +36,7 @@ const Hero = () => {
                         <img
                             src="/assets/Shivali_Gaur.png"
                             alt="Shivali Gaur"
+                            loading="eager"
                             className="w-full max-w-[600px] md:max-w-[800px] object-contain drop-shadow-xl hover:scale-105 transition-transform duration-500"
                         />
                     </div>

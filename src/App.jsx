@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { FaArrowUp } from 'react-icons/fa';
 import Navbar from './components/Navbar';
@@ -6,18 +6,20 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Hero from './sections/Hero';
 import About from './sections/About';
-import Projects from './sections/Projects';
-import Playground from './sections/Playground';
-import Contact from './sections/Contact'; // Fixed path from ./sections/Contact to match file system (Contact.jsx is in sections)
+
+// Lazy load non-critical sections
+const Projects = lazy(() => import('./sections/Projects'));
+const Playground = lazy(() => import('./sections/Playground'));
+const Contact = lazy(() => import('./sections/Contact'));
 
 function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading time
+    // Only show loader for a short time to mask initial layout shifts
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1500);
+    }, 1200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -115,9 +117,11 @@ function App() {
             <main>
               <Hero />
               <About />
-              <Projects />
-              <Playground />
-              <Contact />
+              <Suspense fallback={<div className="h-screen flex items-center justify-center"><div className="w-8 h-8 rounded-full border-4 border-barbie-hot border-t-transparent animate-spin"></div></div>}>
+                <Projects />
+                <Playground />
+                <Contact />
+              </Suspense>
             </main>
             <Footer />
 
