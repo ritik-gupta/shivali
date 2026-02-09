@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap');
-
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --color-barbie-hot: #FF69B4;
@@ -57,6 +57,14 @@ body {
   /* Remove gray tap highlight on iOS */
   overscroll-behavior-y: none;
   /* Optional: prevents bounce effect if desired, but reckless if not carefully used. Safer to leave default or evaluate. */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dark body {
+  background-color: #1a0b16;
+  /* Dark purple/black */
+  color: #fce7f3;
+  /* Light pink text */
 }
 
 /* iOS Dynamic Viewport Height Utility */

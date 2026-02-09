@@ -79,22 +79,22 @@ const Playground = () => {
     ];
 
     return (
-        <section id="playground" className="py-20 bg-white relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <section id="playground" className="py-20 bg-white dark:bg-black relative overflow-hidden transition-colors duration-300">
+            <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] dark:opacity-10 dark:invert"></div>
 
             <div className="container mx-auto px-4 md:px-8 relative z-10">
                 <div className="text-center mb-16">
                     <motion.span
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
-                        className="text-barbie-ruby font-bold uppercase tracking-widest text-sm"
+                        className="text-barbie-ruby dark:text-barbie-hot font-bold uppercase tracking-widest text-sm"
                     >
                         Interactive Zone
                     </motion.span>
                     <motion.h2
                         initial={{ y: 20, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}
-                        className="text-4xl md:text-6xl font-display font-bold text-gray-900 mt-2"
+                        className="text-4xl md:text-6xl font-display font-bold text-gray-900 dark:text-white mt-2"
                     >
                         Pla<span className="text-barbie-hot italic">y</span>ground
                     </motion.h2>
@@ -103,8 +103,8 @@ const Playground = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
 
                     {/* Color Generator */}
-                    <div className="bg-pink-50 p-8 rounded-3xl shadow-lg border-2 border-pink-100">
-                        <h3 className="text-2xl font-bold mb-6 flex items-center gap-2 text-gray-800">
+                    <div className="bg-pink-50 dark:bg-gray-800 p-8 rounded-3xl shadow-lg border-2 border-pink-100 dark:border-gray-700">
+                        <h3 className="text-2xl font-bold mb-6 flex items-center gap-2 text-gray-800 dark:text-white">
                             <FaPalette className="text-barbie-hot" /> Palette Generator
                         </h3>
                         <div className="flex rounded-xl overflow-hidden shadow-inner mb-6 h-32 relative">
@@ -141,8 +141,8 @@ const Playground = () => {
                     </div>
 
                     {/* Sticker Board */}
-                    <div className="bg-purple-50 p-8 rounded-3xl shadow-lg border-2 border-purple-100 relative min-h-[400px] overflow-hidden">
-                        <h3 className="text-2xl font-bold mb-2 flex items-center gap-2 text-gray-800">
+                    <div className="bg-purple-50 dark:bg-gray-900 p-8 rounded-3xl shadow-lg border-2 border-purple-100 dark:border-gray-800 relative min-h-[400px] overflow-hidden">
+                        <h3 className="text-2xl font-bold mb-2 flex items-center gap-2 text-gray-800 dark:text-white">
                             <FaStar className="text-yellow-400" /> Sticker Board
                         </h3>
                         <p className="text-gray-500 mb-6 text-sm">Drag stickers around to create your vibe!</p>

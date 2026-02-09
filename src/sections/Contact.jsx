@@ -42,11 +42,11 @@ const Contact = () => {
     };
 
     return (
-        <section id="contact" className="py-20 bg-gradient-to-t from-pink-100 to-white relative overflow-hidden">
+        <section id="contact" className="py-20 bg-gradient-to-t from-pink-100 to-white dark:from-gray-900 dark:to-black relative overflow-hidden transition-colors duration-300">
 
             {/* Decorative Blob */}
             <motion.div
-                className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-tl from-purple-200 to-pink-200 rounded-full blur-3xl opacity-30 pointer-events-none"
+                className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-tl from-purple-200 to-pink-200 dark:from-purple-900/40 dark:to-pink-900/40 rounded-full blur-3xl opacity-30 pointer-events-none"
                 animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
             />
@@ -56,11 +56,11 @@ const Contact = () => {
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="text-4xl md:text-6xl font-display font-bold text-gray-900 mb-4"
+                        className="text-4xl md:text-6xl font-display font-bold text-gray-900 dark:text-white mb-4"
                     >
                         Let's <span className="text-barbie-hot">Connect</span>!
                     </motion.h2>
-                    <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                    <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                         Got a project in mind or just want to say hi? I'm always open to new opportunities and collaborations.
                     </p>
                 </div>
@@ -103,47 +103,47 @@ const Contact = () => {
                                     whileInView={{ opacity: 1, x: 0 }}
                                     exit={{ opacity: 0, y: -20 }}
                                     onSubmit={handleSubmit}
-                                    className="bg-white p-8 rounded-3xl shadow-xl border border-pink-100 relative"
+                                    className="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-xl border border-pink-100 dark:border-gray-700 relative"
                                 >
                                     <div className="mb-6 group">
-                                        <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Name</label>
+                                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 uppercase tracking-wide">Name</label>
                                         <input
                                             type="text"
                                             required
-                                            className="w-full px-4 py-3 rounded-lg bg-pink-50 border-2 border-transparent focus:border-barbie-hot focus:bg-white transition-all outline-none"
+                                            className="w-full px-4 py-3 rounded-lg bg-pink-50 dark:bg-gray-900 text-gray-800 dark:text-white border-2 border-transparent focus:border-barbie-hot dark:focus:border-barbie-hot focus:bg-white dark:focus:bg-gray-800 transition-all outline-none"
                                             placeholder="Shivali Gaur"
                                             value={formData.name}
                                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                         />
                                     </div>
                                     <div className="mb-6 group">
-                                        <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Email</label>
+                                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 uppercase tracking-wide">Email</label>
                                         <input
                                             type="email"
                                             required
-                                            className="w-full px-4 py-3 rounded-lg bg-pink-50 border-2 border-transparent focus:border-barbie-hot focus:bg-white transition-all outline-none"
+                                            className="w-full px-4 py-3 rounded-lg bg-pink-50 dark:bg-gray-900 text-gray-800 dark:text-white border-2 border-transparent focus:border-barbie-hot dark:focus:border-barbie-hot focus:bg-white dark:focus:bg-gray-800 transition-all outline-none"
                                             placeholder="shivali@example.com"
                                             value={formData.email}
                                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                         />
                                     </div>
                                     <div className="mb-6 group">
-                                        <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Subject</label>
+                                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 uppercase tracking-wide">Subject</label>
                                         <input
                                             type="text"
                                             required
-                                            className="w-full px-4 py-3 rounded-lg bg-pink-50 border-2 border-transparent focus:border-barbie-hot focus:bg-white transition-all outline-none"
+                                            className="w-full px-4 py-3 rounded-lg bg-pink-50 dark:bg-gray-900 text-gray-800 dark:text-white border-2 border-transparent focus:border-barbie-hot dark:focus:border-barbie-hot focus:bg-white dark:focus:bg-gray-800 transition-all outline-none"
                                             placeholder="Project inquiry, collaboration, etc."
                                             value={formData.subject}
                                             onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                                         />
                                     </div>
                                     <div className="mb-6 group">
-                                        <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Message</label>
+                                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 uppercase tracking-wide">Message</label>
                                         <textarea
                                             required
                                             rows="4"
-                                            className="w-full px-4 py-3 rounded-lg bg-pink-50 border-2 border-transparent focus:border-barbie-hot focus:bg-white transition-all outline-none resize-none"
+                                            className="w-full px-4 py-3 rounded-lg bg-pink-50 dark:bg-gray-900 text-gray-800 dark:text-white border-2 border-transparent focus:border-barbie-hot dark:focus:border-barbie-hot focus:bg-white dark:focus:bg-gray-800 transition-all outline-none resize-none"
                                             placeholder="Let's build something amazing together!"
                                             value={formData.message}
                                             onChange={(e) => setFormData({ ...formData, message: e.target.value })}

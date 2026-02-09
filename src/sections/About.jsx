@@ -15,7 +15,7 @@ const About = () => {
 
 
     return (
-        <section id="about" className="py-20 bg-white relative overflow-hidden">
+        <section id="about" className="py-20 bg-white dark:bg-black relative overflow-hidden transition-colors duration-300">
             <div className="container mx-auto px-4 md:px-8">
 
                 <div className="flex flex-col md:flex-row items-center gap-12">
@@ -29,7 +29,7 @@ const About = () => {
                         transition={{ duration: 0.5 }}
                     >
                         <div className="absolute inset-0 bg-barbie-hot rounded-full blur-xl opacity-20 transform scale-110 group-hover:scale-125 transition-transform duration-500"></div>
-                        <div className="relative w-full h-full rounded-full border-4 border-white shadow-2xl overflow-hidden transform hover:rotate-3 transition-transform duration-500">
+                        <div className="relative w-full h-full rounded-full border-4 border-white dark:border-gray-800 shadow-2xl overflow-hidden transform hover:rotate-3 transition-transform duration-500">
                             <img
                                 src="/assets/shivali_pic.jpeg"
                                 alt="Shivali Gaur"
@@ -58,21 +58,21 @@ const About = () => {
                         <motion.span
                             variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}
                             transition={{ duration: 0.3 }}
-                            className="text-barbie-ruby uppercase tracking-wider font-semibold mb-2 block"
+                            className="text-barbie-ruby dark:text-barbie-hot uppercase tracking-wider font-semibold mb-2 block"
                         >
                             Who I Am
                         </motion.span>
                         <motion.h2
                             variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}
                             transition={{ duration: 0.3 }}
-                            className="text-4xl md:text-5xl font-display font-bold text-black mb-6"
+                            className="text-4xl md:text-5xl font-display font-bold text-black dark:text-white mb-6"
                         >
                             Designing with Passion & Purpose
                         </motion.h2>
                         <motion.p
                             variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}
                             transition={{ duration: 0.3 }}
-                            className="text-lg text-gray-600 mb-8 leading-relaxed"
+                            className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed"
                         >
                             I'm a designer based in Delhi, creating meaningful and visually strong digital experiences. I work on UX/UI design, website design, brand identity, and logo design, blending art and strategy to make designs that stand out.
                             <br /><br />

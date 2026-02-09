@@ -50,14 +50,14 @@ const Projects = () => {
     const filteredProjects = projects.filter(project => filter === 'All' || project.category === filter);
 
     return (
-        <section id="projects" className="py-20 bg-pink-50 min-h-screen">
+        <section id="projects" className="py-20 bg-pink-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
             <div className="container mx-auto px-4 md:px-8">
 
                 <div className="text-center mb-12">
                     <motion.h2
                         initial={{ opacity: 0, y: -20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4"
+                        className="text-4xl md:text-5xl font-display font-bold text-gray-900 dark:text-white mb-4"
                     >
                         My <span className="text-barbie-hot">Creations</span>
                     </motion.h2>
@@ -72,7 +72,7 @@ const Projects = () => {
                                 whileTap={{ scale: 0.95 }}
                                 className={`px-6 py-2 rounded-full font-medium transition-all ${filter === cat
                                     ? 'bg-barbie-ruby text-white shadow-lg'
-                                    : 'bg-white text-gray-600 hover:bg-gray-100'
+                                    : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                                     }`}
                             >
                                 {cat}
@@ -113,7 +113,7 @@ const Projects = () => {
                                 }}
                                 exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
                                 key={project.id}
-                                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer group"
+                                className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer group border border-transparent dark:border-gray-700"
                                 onClick={() => setSelectedProject(project)}
                                 whileHover={{
                                     y: -10,
@@ -133,11 +133,11 @@ const Projects = () => {
                                 </div>
                                 <div className="p-6">
                                     <span className="text-xs font-bold text-barbie-hot uppercase tracking-wider mb-2 block">{project.category}</span>
-                                    <h3 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h3>
-                                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">{project.desc}</p>
+                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{project.title}</h3>
+                                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">{project.desc}</p>
                                     <div className="flex flex-wrap gap-2 mb-6">
                                         {project.tech.map((t, i) => (
-                                            <span key={i} className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-md">{t}</span>
+                                            <span key={i} className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs px-2 py-1 rounded-md">{t}</span>
                                         ))}
                                     </div>
                                     <a
@@ -145,7 +145,7 @@ const Projects = () => {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         onClick={(e) => e.stopPropagation()}
-                                        className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors w-full justify-center"
+                                        className="inline-flex items-center gap-2 bg-black dark:bg-gray-900 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-700 transition-colors w-full justify-center"
                                     >
                                         <FaExternalLinkAlt size={12} /> View Project
                                     </a>
@@ -170,13 +170,13 @@ const Projects = () => {
                                 animate={{ scale: 1, opacity: 1 }}
                                 exit={{ scale: 0.8, opacity: 0 }}
                                 onClick={(e) => e.stopPropagation()}
-                                className="bg-white rounded-3xl overflow-hidden max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative"
+                                className="bg-white dark:bg-gray-800 rounded-3xl overflow-hidden max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative"
                             >
                                 <div className="h-64 md:h-80 relative">
                                     <img src={selectedProject.image} alt={selectedProject.title} className="w-full h-full object-cover" />
                                     <button
                                         onClick={() => setSelectedProject(null)}
-                                        className="absolute top-4 right-4 bg-white/80 p-2 rounded-full hover:bg-white text-gray-800 transition-colors"
+                                        className="absolute top-4 right-4 bg-white/80 dark:bg-black/50 p-2 rounded-full hover:bg-white dark:hover:bg-black text-gray-800 dark:text-white transition-colors"
                                     >
                                         ✕
                                     </button>
@@ -186,25 +186,25 @@ const Projects = () => {
                                     <div className="flex justify-between items-start mb-4">
                                         <div>
                                             <span className="text-barbie-hot font-bold uppercase tracking-wider text-sm">{selectedProject.category}</span>
-                                            <h2 className="text-3xl font-bold font-display text-gray-900 mt-1">{selectedProject.title}</h2>
+                                            <h2 className="text-3xl font-bold font-display text-gray-900 dark:text-white mt-1">{selectedProject.title}</h2>
                                         </div>
                                         <div className="flex gap-3">
-                                            <a href={selectedProject.link} target="_blank" rel="noopener noreferrer" className="bg-gray-900 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors flex items-center gap-2">
+                                            <a href={selectedProject.link} target="_blank" rel="noopener noreferrer" className="bg-gray-900 dark:bg-black text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors flex items-center gap-2">
                                                 <FaExternalLinkAlt /> View Project
                                             </a>
                                         </div>
                                     </div>
 
-                                    <p className="text-gray-600 text-lg mb-6 leading-relaxed">
+                                    <p className="text-gray-600 dark:text-gray-300 text-lg mb-6 leading-relaxed">
                                         {selectedProject.desc} This project showcases modern design principles and robust engineering.
                                         Built with performance and user experience in mind.
                                     </p>
 
                                     <div className="mb-6">
-                                        <h4 className="font-bold text-gray-900 mb-3">Technologies Used</h4>
+                                        <h4 className="font-bold text-gray-900 dark:text-white mb-3">Technologies Used</h4>
                                         <div className="flex flex-wrap gap-2">
                                             {selectedProject.tech.map((t) => (
-                                                <span key={t} className="bg-pink-100 text-barbie-ruby px-3 py-1 rounded-full font-medium text-sm border border-pink-200">
+                                                <span key={t} className="bg-pink-100 dark:bg-pink-900/30 text-barbie-ruby dark:text-pink-300 px-3 py-1 rounded-full font-medium text-sm border border-pink-200 dark:border-pink-800">
                                                     {t}
                                                 </span>
                                             ))}
