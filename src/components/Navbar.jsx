@@ -7,6 +7,7 @@ const NAV_LINKS = [
     { name: 'Home', to: 'home' },
     { name: 'About', to: 'about' },
     { name: 'Projects', to: 'projects' },
+    { name: 'Gallery', to: 'gallery' },
     { name: 'Playground', to: 'playground' },
 ];
 

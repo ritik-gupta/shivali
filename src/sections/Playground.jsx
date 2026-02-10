@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useRef, useCallback, useMemo, memo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FaSync, FaPalette, FaStar, FaHeart, FaSmile, FaCloud } from 'react-icons/fa';
 
 // Generate non-overlapping positions for stickers
@@ -32,9 +32,12 @@ const generatePositions = () => {
     return positions;
 };
 
+
+
 const Playground = () => {
     const [colors, setColors] = useState(['#FF69B4', '#FFC0CB', '#E0115F', '#C71585', '#BA55D3']);
     const [copiedColor, setCopiedColor] = useState(null);
+
     const [stickerPositions, setStickerPositions] = useState(generatePositions());
     const constraintsRef = useRef(null);
 
@@ -78,6 +81,10 @@ const Playground = () => {
         { id: 6, icon: '🎀', colorIndex: 0, ...stickerPositions[5] },
     ];
 
+
+
+
+
     return (
         <section id="playground" className="py-20 bg-white dark:bg-black relative overflow-hidden transition-colors duration-300">
             <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] dark:opacity-10 dark:invert"></div>
@@ -101,6 +108,10 @@ const Playground = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+                    {/* Infinite Marquee - Visual Break */}
+
+
 
                     {/* Color Generator */}
                     <div className="bg-pink-50 dark:bg-gray-800 p-8 rounded-3xl shadow-lg border-2 border-pink-100 dark:border-gray-700">
@@ -175,10 +186,10 @@ const Playground = () => {
                             ))}
                         </div>
                     </div>
-
                 </div>
             </div>
-        </section>
+
+        </section >
     );
 };
 

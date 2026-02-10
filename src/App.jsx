@@ -9,6 +9,7 @@ import About from './sections/About';
 
 // Lazy load non-critical sections
 const Projects = lazy(() => import('./sections/Projects'));
+const Gallery = lazy(() => import('./sections/Gallery'));
 const Playground = lazy(() => import('./sections/Playground'));
 const Contact = lazy(() => import('./sections/Contact'));
 
@@ -121,6 +122,7 @@ function App() {
               <About />
               <Suspense fallback={<div className="h-screen flex items-center justify-center"><div className="w-8 h-8 rounded-full border-4 border-barbie-hot border-t-transparent animate-spin"></div></div>}>
                 <Projects />
+                <Gallery />
                 <Playground />
                 <Contact />
               </Suspense>
