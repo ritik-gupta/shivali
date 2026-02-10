@@ -1,29 +1,20 @@
 import { useState, useMemo, useCallback, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const PosterMarquee = memo(({ posters, onSelect }) => {
+const PosterMarquee = memo(({ posters, onSelect, isPaused }) => {
     return (
         <div className="w-full overflow-hidden relative group mb-8">
             <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white dark:from-gray-900 to-transparent z-10 pointer-events-none" />
             <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white dark:from-gray-900 to-transparent z-10 pointer-events-none" />
 
-            <motion.div
-                className="flex gap-6 w-max"
-                animate={{ x: "-50%" }}
-                initial={{ x: "0%" }}
-                transition={{
-                    repeat: Infinity,
-                    ease: "linear",
-                    duration: 40
-                }}
-                whileHover={{ scale: 0.98, opacity: 0.8 }}
+            <div
+                className={`flex gap-6 w-max animate-marquee hover:pause-animation ${isPaused ? 'pause-animation' : ''}`}
             >
                 {[...posters, ...posters].map((poster, i) => (
-                    <motion.div
+                    <div
                         key={`${poster.id}-${i}`}
                         onClick={() => onSelect(poster)}
-                        className="h-96 aspect-[3/4] rounded-xl overflow-hidden relative shadow-md border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-800 group/item cursor-zoom-in"
-                        whileHover={{ y: -5 }}
+                        className="h-96 aspect-[3/4] rounded-xl overflow-hidden relative shadow-md border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-800 group/item cursor-zoom-in transition-transform duration-300 hover:-translate-y-2 hover:scale-[1.02]"
                     >
                         <img
                             src={poster.image}
@@ -39,9 +30,9 @@ const PosterMarquee = memo(({ posters, onSelect }) => {
                                 {poster.title}
                             </h4>
                         </div>
-                    </motion.div>
+                    </div>
                 ))}
-            </motion.div>
+            </div>
         </div>
     );
 });
@@ -152,7 +143,7 @@ const Gallery = () => {
                         whileInView={{ opacity: 1 }}
                         className="text-barbie-ruby dark:text-barbie-hot font-bold uppercase tracking-widest text-sm"
                     >
-                        Portfolio
+                        Showcase
                     </motion.span>
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
@@ -167,7 +158,7 @@ const Gallery = () => {
                     </p>
                 </div>
 
-                <PosterMarquee posters={posters} onSelect={handleSelectPoster} />
+                <PosterMarquee posters={posters} onSelect={handleSelectPoster} isPaused={!!selectedPoster} />
             </div>
 
             {/* Poster Modal */}

@@ -75,12 +75,14 @@ const Hero = () => {
                     className="flex justify-center gap-4"
                 >
                     <Link to="projects" smooth={true} duration={500} offset={-70} className="cursor-pointer">
-                        <span className="bg-barbie-ruby text-white px-8 py-3 rounded-full text-lg font-medium shadow-lg hover:bg-barbie-deep transition-all hover:scale-105 inline-block">
+                        <span className="hover-jelly hover-shine relative overflow-hidden bg-barbie-ruby text-white px-8 py-3 rounded-full text-lg font-medium shadow-lg hover:bg-barbie-deep transition-all inline-block">
                             View My Work
+                            {/* Shine Element */}
+                            <div className="absolute top-0 -left-[100%] w-1/2 h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-25deg] transition-none hover:animate-[shine_0.75s]" />
                         </span>
                     </Link>
                     <Link to="contact" smooth={true} duration={500} offset={-70} className="cursor-pointer">
-                        <span className="bg-white text-barbie-ruby border-2 border-barbie-ruby px-8 py-3 rounded-full text-lg font-medium shadow-lg hover:bg-pink-50 transition-all hover:scale-105 inline-block">
+                        <span className="hover-jelly bg-white text-barbie-ruby border-2 border-barbie-ruby px-8 py-3 rounded-full text-lg font-medium shadow-lg hover:bg-pink-50 transition-all inline-block">
                             Contact Me
                         </span>
                     </Link>

@@ -2,6 +2,7 @@ import { useEffect, useState, lazy, Suspense } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { FaArrowUp } from 'react-icons/fa';
 import Navbar from './components/Navbar';
+import Reveal from './components/Reveal';
 
 import Footer from './components/Footer';
 import Hero from './sections/Hero';
@@ -121,10 +122,18 @@ function App() {
               <Hero />
               <About />
               <Suspense fallback={<div className="h-screen flex items-center justify-center"><div className="w-8 h-8 rounded-full border-4 border-barbie-hot border-t-transparent animate-spin"></div></div>}>
-                <Projects />
-                <Gallery />
-                <Playground />
-                <Contact />
+                <Reveal>
+                  <Projects />
+                </Reveal>
+                <Reveal>
+                  <Gallery />
+                </Reveal>
+                <Reveal>
+                  <Playground />
+                </Reveal>
+                <Reveal>
+                  <Contact />
+                </Reveal>
               </Suspense>
             </main>
             <Footer />
