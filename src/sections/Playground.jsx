@@ -3,31 +3,24 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaSync, FaPalette, FaStar, FaHeart, FaSmile, FaCloud } from 'react-icons/fa';
 
 // Generate non-overlapping positions for stickers
-const generatePositions = () => {
+const generatePositions = (count = 6) => {
     const positions = [];
-    const gridSize = 80; // Minimum spacing between stickers
-    const maxAttempts = 50;
+    const minDistance = 50;
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < count; i++) {
         let attempts = 0;
-        let newPos;
-        let overlapping;
+        let x, y;
+        let isOverlapping;
 
         do {
-            newPos = {
-                top: Math.random() * 180,
-                left: Math.random() * 280
-            };
-
-            overlapping = positions.some(pos =>
-                Math.abs(pos.top - newPos.top) < gridSize &&
-                Math.abs(pos.left - newPos.left) < gridSize
-            );
-
+            const maxW = typeof window !== 'undefined' && window.innerWidth < 768 ? 220 : 480;
+            x = 20 + Math.random() * maxW;
+            y = 20 + Math.random() * 240;
+            isOverlapping = positions.some(p => Math.abs(p.left - x) < 60 && Math.abs(p.top - y) < 60);
             attempts++;
-        } while (overlapping && attempts < maxAttempts);
+        } while (isOverlapping && attempts < 150);
 
-        positions.push(newPos);
+        positions.push({ top: y, left: x });
     }
     return positions;
 };
@@ -39,7 +32,16 @@ const Playground = () => {
     const [copiedColor, setCopiedColor] = useState(null);
 
     const [stickerPositions, setStickerPositions] = useState(generatePositions());
+    const [stickerZIndices, setStickerZIndices] = useState([1, 1, 1, 1, 1, 1]);
+    const [topZ, setTopZ] = useState(10);
     const constraintsRef = useRef(null);
+
+    const bringToFront = (index) => {
+        setTopZ(prev => prev + 1);
+        const newZ = [...stickerZIndices];
+        newZ[index] = topZ + 1;
+        setStickerZIndices(newZ);
+    };
 
     const generateColors = () => {
         const newColors = [];
@@ -63,7 +65,8 @@ const Playground = () => {
         }
 
         setColors(newColors);
-        setStickerPositions(generatePositions()); // Reshuffle only on "Generate Magic"
+        setStickerPositions(generatePositions());
+        setStickerZIndices([1, 1, 1, 1, 1, 1]); // Reset Z-indices on shuffle
     };
 
     const handleCopyColor = (color) => {
@@ -73,12 +76,12 @@ const Playground = () => {
     };
 
     const stickers = [
-        { id: 1, icon: <FaStar />, colorIndex: 0, ...stickerPositions[0] },
-        { id: 2, icon: <FaHeart />, colorIndex: 1, ...stickerPositions[1] },
-        { id: 3, icon: <FaSmile />, colorIndex: 2, ...stickerPositions[2] },
-        { id: 4, icon: <FaCloud />, colorIndex: 3, ...stickerPositions[3] },
-        { id: 5, icon: '👠', colorIndex: 4, ...stickerPositions[4] },
-        { id: 6, icon: '🎀', colorIndex: 0, ...stickerPositions[5] },
+        { id: 1, icon: <FaStar />, colorIndex: 0, ...(stickerPositions[0] || { top: 20, left: 20 }) },
+        { id: 2, icon: <FaHeart />, colorIndex: 1, ...(stickerPositions[1] || { top: 60, left: 60 }) },
+        { id: 3, icon: <FaSmile />, colorIndex: 2, ...(stickerPositions[2] || { top: 100, left: 100 }) },
+        { id: 4, icon: <FaCloud />, colorIndex: 3, ...(stickerPositions[3] || { top: 140, left: 140 }) },
+        { id: 5, icon: '👠', colorIndex: 4, ...(stickerPositions[4] || { top: 180, left: 180 }) },
+        { id: 6, icon: '🎀', colorIndex: 0, ...(stickerPositions[5] || { top: 200, left: 50 }) },
     ];
 
 
@@ -159,13 +162,14 @@ const Playground = () => {
                         <p className="text-gray-500 mb-6 text-sm">Drag stickers around to create your vibe!</p>
 
                         <div ref={constraintsRef} className="bg-white/50 border-2 border-dashed border-purple-200 rounded-xl h-80 relative overflow-hidden">
-                            {stickers.map((sticker) => (
+                            {stickers.map((sticker, idx) => (
                                 <motion.div
                                     key={sticker.id}
                                     drag
                                     dragConstraints={constraintsRef}
                                     dragElastic={0.1}
                                     dragMomentum={true}
+                                    onDragStart={() => bringToFront(idx)}
                                     whileDrag={{ scale: 1.2, rotate: 10 }}
                                     whileHover={{
                                         scale: 1.1,
@@ -174,11 +178,12 @@ const Playground = () => {
                                         transition: { duration: 0.3 }
                                     }}
                                     whileTap={{ cursor: 'grabbing' }}
-                                    className="absolute p-4 text-4xl shadow-sm rounded-full bg-white select-none"
+                                    className="absolute p-4 text-4xl shadow-sm rounded-full bg-white select-none transition-shadow hover:shadow-md"
                                     style={{
                                         color: colors[sticker.colorIndex],
                                         top: sticker.top,
-                                        left: sticker.left
+                                        left: sticker.left,
+                                        zIndex: stickerZIndices[idx] || 1
                                     }}
                                 >
                                     {sticker.icon}

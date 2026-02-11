@@ -1,18 +1,65 @@
-import { useEffect, useState, lazy, Suspense } from 'react';
+import { useEffect, useState, useLayoutEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { FaArrowUp } from 'react-icons/fa';
 import Navbar from './components/Navbar';
-import Reveal from './components/Reveal';
-
 import Footer from './components/Footer';
-import Hero from './sections/Hero';
-import About from './sections/About';
+import Home from './pages/Home';
+import FullGallery from './pages/FullGallery';
 
-// Lazy load non-critical sections
-const Projects = lazy(() => import('./sections/Projects'));
-const Gallery = lazy(() => import('./sections/Gallery'));
-const Playground = lazy(() => import('./sections/Playground'));
-const Contact = lazy(() => import('./sections/Contact'));
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  // Disable browser default restoration to avoid conflicts
+  useLayoutEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
+  useEffect(() => {
+    // Save scroll position for home page
+    const handleScroll = () => {
+      if (window.location.pathname === '/') {
+        sessionStorage.setItem('home_scroll_pos', window.scrollY.toString());
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Use useLayoutEffect to restore scroll before browser paint
+  useLayoutEffect(() => {
+    if (pathname === '/gallery') {
+      window.scrollTo(0, 0);
+    } else if (pathname === '/') {
+      const savedPos = sessionStorage.getItem('home_scroll_pos');
+      if (savedPos) {
+        window.scrollTo(0, parseInt(savedPos));
+      }
+    }
+  }, [pathname]);
+
+  return null;
+};
+
+const AppContent = ({ darkMode, toggleTheme }) => {
+  const location = useLocation();
+  const isHome = location.pathname === '/';
+
+  return (
+    <>
+      <ScrollToTop />
+      {isHome && <Navbar darkMode={darkMode} toggleTheme={toggleTheme} />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/gallery" element={<FullGallery />} />
+      </Routes>
+      <Footer />
+    </>
+  );
+};
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -75,7 +122,6 @@ function App() {
       {/* Texture Overlay */}
       <div className="noise-overlay" />
 
-
       <AnimatePresence>
         {loading ? (
           <motion.div
@@ -117,26 +163,9 @@ function App() {
               style={{ scaleX }}
             />
 
-            <Navbar darkMode={darkMode} toggleTheme={toggleTheme} />
-            <main>
-              <Hero />
-              <About />
-              <Suspense fallback={<div className="h-screen flex items-center justify-center"><div className="w-8 h-8 rounded-full border-4 border-barbie-hot border-t-transparent animate-spin"></div></div>}>
-                <Reveal>
-                  <Projects />
-                </Reveal>
-                <Reveal>
-                  <Gallery />
-                </Reveal>
-                <Reveal>
-                  <Playground />
-                </Reveal>
-                <Reveal>
-                  <Contact />
-                </Reveal>
-              </Suspense>
-            </main>
-            <Footer />
+            <Router>
+              <AppContent darkMode={darkMode} toggleTheme={toggleTheme} />
+            </Router>
 
             {/* Back to Top Button */}
             <AnimatePresence>
