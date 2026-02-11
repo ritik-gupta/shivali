@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, memo } from 'react';
 import Reveal from '../components/Reveal';
 import Hero from '../sections/Hero';
 import About from '../sections/About';
@@ -9,7 +9,7 @@ const Gallery = lazy(() => import('../sections/Gallery'));
 const Playground = lazy(() => import('../sections/Playground'));
 const Contact = lazy(() => import('../sections/Contact'));
 
-const Home = () => {
+const Home = memo(() => {
     return (
         <main>
             <Hero />
@@ -30,6 +30,6 @@ const Home = () => {
             </Suspense>
         </main>
     );
-};
+});
 
 export default Home;

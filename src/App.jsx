@@ -52,8 +52,14 @@ const AppContent = ({ darkMode, toggleTheme }) => {
     <>
       <ScrollToTop />
       {isHome && <Navbar darkMode={darkMode} toggleTheme={toggleTheme} />}
+
+      {/* Keep Home mounted to avoid re-rendering lag and preserve state */}
+      <div style={{ display: isHome ? 'block' : 'none' }}>
+        <Home />
+      </div>
+
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* Home is rendered outside to act as 'Keep Alive' */}
         <Route path="/gallery" element={<FullGallery />} />
       </Routes>
       <Footer />

@@ -175,6 +175,10 @@ h6 {
   animation-play-state: paused !important;
 }
 
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
 @keyframes jelly {
 
   0%,
