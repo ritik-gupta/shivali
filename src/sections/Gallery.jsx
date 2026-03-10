@@ -51,7 +51,7 @@ const Gallery = () => {
     return (
         <section id="gallery" className="py-20 bg-gray-50 dark:bg-gray-900 transition-colors duration-300 relative overflow-hidden">
             {/* Background Pattern */}
-            <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] dark:opacity-10 dark:invert"></div>
+            <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none dark:opacity-10" style={{backgroundImage:"radial-gradient(circle,#FF69B4 1px,transparent 1px)",backgroundSize:"24px 24px"}}></div>
 
             <div className="container mx-auto px-4 relative z-10">
                 <div className="text-center mb-16">

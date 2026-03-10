@@ -25,7 +25,7 @@ const ScrollToTop = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -74,7 +74,7 @@ function App() {
     // Only show loader for a short time to mask initial layout shifts
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1200);
+    }, 800);
     return () => clearTimeout(timer);
   }, []);
 
@@ -108,14 +108,17 @@ function App() {
 
   const [showTopBtn, setShowTopBtn] = useState(false);
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      if (window.scrollY > 400) {
-        setShowTopBtn(true);
-      } else {
-        setShowTopBtn(false);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setShowTopBtn(window.scrollY > 400);
+          ticking = false;
+        });
+        ticking = true;
       }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -149,7 +152,7 @@ function App() {
                 className="h-full bg-white"
                 initial={{ width: "0%" }}
                 animate={{ width: "100%" }}
-                transition={{ duration: 1.2, ease: "easeInOut" }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
               />
             </div>
             <p className="text-white mt-4 font-bold tracking-widest uppercase text-sm animate-pulse">
