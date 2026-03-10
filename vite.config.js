@@ -12,7 +12,7 @@ export default defineConfig({
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],
           'vendor-motion': ['framer-motion'],
           'vendor-icons': ['react-icons'],
-          'vendor-misc': ['react-type-animation', 'react-scroll', '@emailjs/browser'],
+          'vendor-misc': ['react-type-animation', 'react-scroll', 'emailjs-com'],
         },
       },
     },
